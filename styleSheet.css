@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#wholeMask{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1001;
+    background-color: black;
+    color: whitesmoke;
+    text-justify: auto;
+}
+
+#container{
+    position: absolute;
+    background-color: goldenrod;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
+
+.btn{
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    color:aliceblue;
+}
+
+.confirm-btn{
+    background-color: green;
+}
+
+.cancel-btn{
+    background-color: red;
+}
+
+#controller{
+    position: fixed;
+    background-color: linen;
+    height: 100px;
+    width: 100%;
+    bottom: 0;
+}
+
+#btn-add{
+    position: relative;
+    margin-top: 30px;
+    margin-left: 350px;
+}
+
+#btn-delete{
+    position: relative;
+    margin-top: 30px;
+    margin-left: 450px;
+}
+
+#additionPanel{
+    position: absolute;
+    top: 50px;
+    left: 450px;
+    margin: auto;
+    height: 400px;
+    width: 500px;
+    border-radius: 25px;
+    background-color: yellow;
+    z-index: -2;
+}
+
+#title{
+    position: relative;
+    width: 400px;
+    height: 50px;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+#text{
+    position: relative;
+    width: 400px;
+    height: 150px;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+
+#addition-controller{
+    position: relative;
+    margin-top: 20px;
+    background-color: aqua;
+    border-radius: 25px;
+    height: 100px;
+    width: 480px;
+    margin-left: 10px;
+}
+
+#btn-doAdd{
+    position: relative;
+    margin-top: 30px;
+    margin-left: 90px;
+}
+
+#btn-doUndo{
+    position: relative;
+    margin-top: 30px;
+    margin-left: 90px;
+}
+
+.tip{
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    background-color:wheat;
+    border:10px solid blue;
+}
+
+
+.edit{
+    resize: none;
+    background-color: aqua;
+    white-space: pre-line;
+}
