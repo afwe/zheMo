@@ -130,11 +130,14 @@
                 var newTitle=document.createElement("textarea");
                 var newText=document.createElement("textarea");
                 var newBtn=document.createElement("button");
+                newBtn.id="Btn"+id;
                 newBtn.innerHTML="删除";
-                newBtn.click(function (){
+                newBtn.onclick=function (){
                     console.log("?");
-                    deleteDataById(this.id);
-                });
+                    console.log(this.id.substr(3,this.id.length));
+                    deleteDataById(this.id.substr(3,this.id.length));
+                    location.reload();
+                };
                 newDiv.id=id;
                 newDiv.className="tip";
                 newTitle.value=thisData.title;
