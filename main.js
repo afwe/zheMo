@@ -1,36 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel = "stylesheet" href = "./styleSheet.css" type = "text/css">
-    </head>
-    <body>
-        <div id="additionPanel">
-            <textarea id="title" class="edit" placeholder="这里输入标题...."></textarea>
-            <textarea id="text" class="edit" placeholder="这里输入内容...."></textarea>
-            <div id="addition-controller">
-                <button id="btn-doAdd" class="btn confirm-btn" onclick="doAdd()">
-                    提交
-                </button>
-                <button id="btn-doUndo" class="btn cancel-btn" onclick="doUndo()">
-                    取消
-                </button>
-            </div>
-        </div>
-        <div id="wholeMask">Now Loading</div>
-        <div id="container">
-            <div id="controller">
-                 <button id="btn-add" class="btn confirm-btn" onclick="addOne()">
-                    添加
-                </button>
-                <button id="btn-delete" class="btn cancel-btn" onclick="deleteAll()">
-                    清空
-                </button>
-            </div>
-        </div>
-        <script type="text/javascript">
-            var data=[];
-            var startX,startY,toLeft,toTop,isMove = false,isChange = false,nowMove;
+var data=[];
+            var startX,startY,toLeft,toTop,isMove = false,nowMove;
             window.onload=function(){
                 data=getData();
                 for(let index in data){
@@ -123,82 +92,45 @@
             function appendTipById(id, newx, newy){
                 let thisData=getDataById(id);
                 var newDiv=document.createElement("div");
-                var newTitle=document.createElement("textarea");
-                var newText=document.createElement("textarea");
                 newDiv.id=id;
                 newDiv.className="tip";
-                newTitle.value=thisData.title;
-                newTitle.className="titleArea";
-                newTitle.id="Title"+id;
-                newText.value=thisData.text;
-                newText.className="textArea";
-                newText.id="Text"+id;
+                newDiv.title=thisData.title;
+                newDiv.text=thisData.text;
+                newDiv.innerHTML=newDiv.title+"<br></br>"+newDiv.text;
                 newDiv.style.zIndex = id;
                 newDiv.style.top = thisData.y;
                 newDiv.style.left = thisData.x;
-                newDiv.style.height = thisData.height;
-                newDiv.style.width = thisData.width;
+                console.log(thisData.y);
                 newDiv.onmousedown = function(e){
                     startX=e.clientX;
                     startY=e.clientY;
-                    let width = this.style.width,height = this.style.height;
-                    width = width.substr(0, width.length-2);
-                    height = height.substr(0, height.length-2);
-                    width=parseInt(width);
-                    height=parseInt(height);
+                    isMove=true;
                     nowMove=this.id;
-                    startLeft=document.getElementById(nowMove).style.left.substr(0,document.getElementById(nowMove).style.left.length-2);
-                    startTop=document.getElementById(nowMove).style.top.substr(0,document.getElementById(nowMove).style.top.length-2);
-                    startLeft=parseInt(startLeft);
-                    startTop=parseInt(startTop);
-
-                    if(startLeft+20 <= startX && startLeft+width-20 >=startX &&
-                        startTop+20 <=startY && startTop+height-20 >= startY){
-                            isMove=true;
-                    }
-                    else isChange = this.id;
+                    startLeft=document.getElementById(nowMove).style.left.slice(0,document.getElementById(nowMove).style.left.length-2);
+                    startTop=document.getElementById(nowMove).style.top.slice(0,document.getElementById(nowMove).style.top.length-2);
                 }
                 newDiv.onmouseup = function(){
                     isMove=false;
-                    isChange=false;
                     let newObj = {};
-                    newObj.title = document.getElementById("Title"+this.id).value;
-                    newObj.text = document.getElementById("Text"+this.id).value;
+                    newObj.title = document.getElementById(this.id).title;
+                    newObj.text = document.getElementById(this.id).text;
                     newObj.x=document.getElementById(this.id).style.left;
                     newObj.y=document.getElementById(this.id).style.top;
-                    newObj.height=document.getElementById(this.id).style.height;
-                    newObj.width=document.getElementById(this.id).style.width;
                     saveDataById(this.id, newObj);
                 }
                 document.getElementById("container").appendChild(newDiv);
-                document.getElementById(newDiv.id).appendChild(newTitle);
-                document.getElementById(newDiv.id).appendChild(newText);
             }
             window.onmousemove = function(e){
-                if(isMove == true) {
-                    let nx=e.clientX,ny=e.clientY;
-                    let newLeft=nx-(startX-startLeft),newTop=ny-(startY-startTop);
-                    document.getElementById(nowMove).style.top=newTop+"px";
-                    document.getElementById(nowMove).style.left=newLeft+"px";
-                }
-                else if(isChange != false){
-                    let nx=e.clientX,ny=e.clientY;
-                    let newWidth = e.clientX - document.getElementById(isChange).style.left.substr(0,document.getElementById(isChange).style.left.length-2);
-                    let newHeight = e.clientY - document.getElementById(isChange).style.top.substr(0,document.getElementById(isChange).style.top.length-2);
-                    if(newWidth > 300){
-                        document.getElementById(isChange).style.width = newWidth.toString()+"px";
-                    }
-                    if(newHeight > 180){
-                        document.getElementById(isChange).style.height = newHeight.toString()+"px";
-                    }
+                if(isMove == false) {
+                    return;
                 }
                 
+                let nx=e.clientX,ny=e.clientY;
+                let newLeft=nx-(startX-startLeft),newTop=ny-(startY-startTop);
+                document.getElementById(nowMove).style.top=newTop+"px";
+                document.getElementById(nowMove).style.left=newLeft+"px";
             }
             function removeTipById(id){
                 document.getElementsById(id).remove();
                 deleteDataById(id);
             }
-        </script>
-    </body>
-    
-</html>

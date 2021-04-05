@@ -120,3 +120,16 @@
     background-color: aqua;
     white-space: pre-line;
 }
+
+.titleArea{
+    position: relative;
+    margin-left:20px;
+    margin-top:20px;
+    resize: none;
+}
+.textArea{
+    position: relative;
+    margin-left:20px;
+    margin-top:20px;
+    resize: none;
+}
