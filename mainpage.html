@@ -54,7 +54,10 @@
             function deleteAll(){
                 for(let index in data){
                     document.getElementById(data[index]).remove();
+                    deleteDataById(index);
                 }
+                data=[];
+                saveData();
             }
 
             function doAdd(){
@@ -116,15 +119,22 @@
             }
 
             function deleteDataById(id){
-                let index=data.indeOf(id.parseInt());
+                let index=data.indexOf(parseInt(id));
                 if(index!=-1) data.splice(index, 1);
-                localStorage.removeItem(`soredData-${id}`);
+                saveData();
+                localStorage.removeItem(`storedData-${id}`);
             }
             function appendTipById(id, newx, newy){
                 let thisData=getDataById(id);
                 var newDiv=document.createElement("div");
                 var newTitle=document.createElement("textarea");
                 var newText=document.createElement("textarea");
+                var newBtn=document.createElement("button");
+                newBtn.innerHTML="删除";
+                newBtn.click(function (){
+                    console.log("?");
+                    deleteDataById(this.id);
+                });
                 newDiv.id=id;
                 newDiv.className="tip";
                 newTitle.value=thisData.title;
@@ -170,9 +180,10 @@
                     newObj.width=document.getElementById(this.id).style.width;
                     saveDataById(this.id, newObj);
                 }
+                newDiv.appendChild(newTitle);
+                newDiv.appendChild(newText);
+                newDiv.appendChild(newBtn);
                 document.getElementById("container").appendChild(newDiv);
-                document.getElementById(newDiv.id).appendChild(newTitle);
-                document.getElementById(newDiv.id).appendChild(newText);
             }
             window.onmousemove = function(e){
                 if(isMove == true) {
